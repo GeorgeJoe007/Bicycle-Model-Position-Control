@@ -173,6 +173,8 @@ x_d = 20.0, y_d = 20.0;  // Long distance
 - 90° turns: `theta = 0, x_d = 0, y_d = 5` → Maximum steering
 
 **4. Performance Metrics:**
+```cpp
 // Calculate after simulation:
 double final_error = hypot(x_d - x, y_d - y);
 // Expected: < 1.0 unit for most cases
+```
