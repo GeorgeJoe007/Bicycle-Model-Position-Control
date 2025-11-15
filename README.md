@@ -22,8 +22,10 @@ where:
 ### 1. Angle Normalization
 
 **Implementation:**
+```cpp
 theta = atan2(sin(theta), cos(theta));
 heading_error = atan2(sin(heading_error), cos(heading_error));
+```
 
 This is the **industry-standard method** for angle normalization in robotics, used extensively in:
 - ROS (Robot Operating System) tf library
@@ -39,7 +41,9 @@ This is the **industry-standard method** for angle normalization in robotics, us
 ### 2. Accurate Distance Calculation
 
 **Implementation:**
+```cpp
 double dist = hypot(dx, dy);
+```
 
 `hypot()` is an **IEEE 754 compliant** function with built-in overflow/underflow protections:
 
@@ -51,10 +55,12 @@ double dist = hypot(dx, dy);
 ### 3. Goal Detection with Epsilon Threshold
 
 **Implementation:**
+```cpp
 const double EPS = 1e-6;
 if (dist < EPS) {
     return 0.0;
 }
+```
 
 **Technical Advantages:**
 - Prevents division-by-zero type situations
@@ -71,16 +77,20 @@ if (dist < EPS) {
 ### 4. Dual-Layer Steering Protection
 
 **Model Input Validation:**
+```cpp
 // In update() method
 const double max_input_delta = M_PI / 3.0;  // 60 degrees
 if (delta > max_input_delta) delta = max_input_delta;
 if (delta < -max_input_delta) delta = -max_input_delta;
+```
 
 **Controller Output Limiting:**
+```cpp
 // In compute() method
 const double max_steering_angle = M_PI / 4;  // 45 degrees
 if (delta > max_steering_angle) delta = max_steering_angle;
 if (delta < -max_steering_angle) delta = -max_steering_angle;
+```
 
 ## Bicycle Kinematics
 
